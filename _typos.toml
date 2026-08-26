@@ -7,3 +7,6 @@ extend-exclude = ["go.sum", "check_branch_name.sh","go.mod"]
 # *sigh* this just isn't worth the cost of fixing
 O_WRONLY = "O_WRONLY"
 WRONLY = "WRONLY"
+[default.extend-words]
+byted = "byted"
+bytedance = "bytedance"

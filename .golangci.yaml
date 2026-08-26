@@ -12,12 +12,5 @@ formatters:
   enable:
     - gofmt
 
-issues:
-  exclude-dirs-use-default: true
-  exclude-dirs:
-    - kitex_gen
-  exclude-files:
-    - ".*\\.mock\\.go$"
-
 run:
   timeout: 5m
