@@ -22,6 +22,9 @@ import (
 	"reflect"
 	"strings"
 
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
+
 	"gopkg.in/yaml.v3"
 )
 
@@ -93,7 +96,7 @@ func goKeyFormat(key string) string {
 		return r == ' ' || r == '_' || r == '-'
 	})
 	for _, str := range strList {
-		st += strings.Title(str)
+		st += cases.Title(language.English).String(str)
 	}
 	if len(st) == 0 {
 		st = key

@@ -25,6 +25,8 @@ import (
 	"github.com/Masterminds/sprig/v3"
 	"github.com/cloudwego/cwgo/pkg/consts"
 	"github.com/cloudwego/kitex/tool/internal_pkg/generator"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 //go:embed kitex
@@ -81,8 +83,8 @@ func RegisterTemplateFunc() {
 		generator.AddTemplateFunc(k, f)
 	}
 	generator.AddTemplateFunc("ToCamel", func(name string) string {
-		name = strings.Replace(name, "_", " ", -1)
-		name = strings.Title(name)
-		return strings.Replace(name, " ", "", -1)
+		name = strings.ReplaceAll(name, "_", " ")
+		name = cases.Title(language.English).String(name)
+		return strings.ReplaceAll(name, " ", "")
 	})
 }

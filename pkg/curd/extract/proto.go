@@ -240,7 +240,7 @@ func getMongoIfTag(s string) (tokens, methods []string, err error) {
 	if equalIndex == -1 || index+6 >= equalIndex {
 		return nil, nil, fmt.Errorf("there are grammar errors in %s", s)
 	}
-	tokens = append(tokens, strings.Replace(s[index+6:equalIndex], " ", "", -1))
+	tokens = append(tokens, strings.ReplaceAll(s[index+6:equalIndex], " ", ""))
 
 	leftIndex, rightIndex := -1, -1
 	count := 0
@@ -258,7 +258,7 @@ func getMongoIfTag(s string) (tokens, methods []string, err error) {
 	if leftIndex == -1 || rightIndex == -1 || leftIndex+1 == rightIndex {
 		return nil, nil, fmt.Errorf("there are grammar errors in %s", s)
 	}
-	methods = append(methods, strings.Replace(s[leftIndex+1:rightIndex], "\n", "", -1))
+	methods = append(methods, strings.ReplaceAll(s[leftIndex+1:rightIndex], "\n", ""))
 
 	if rightIndex+1 == len(s) {
 		return

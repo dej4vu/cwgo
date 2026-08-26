@@ -59,7 +59,7 @@ func GetGOPATH() (gopath string, err error) {
 	if !isExist {
 		return "", err
 	}
-	return strings.Replace(gopath, consts.Slash, string(os.PathSeparator), -1), nil
+	return strings.ReplaceAll(gopath, consts.Slash, string(os.PathSeparator)), nil
 }
 
 // GetBuildGoPaths returns the list of Go path directories.

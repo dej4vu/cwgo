@@ -84,6 +84,7 @@ func NewParser(projectPath, hertzRepoUrl string) (*Parser, error) {
 	err = filepath.WalkDir(projectPath, func(path string, d fs.DirEntry, err error) error {
 		if d.IsDir() {
 			// parse whole package
+			//nolint:staticcheck // SA1019 ParseDir deprecated in Go 1.25; migration to packages.Load is out of scope
 			astPkgMap, err := parser.ParseDir(p.fSet, path, nil, parser.ParseComments)
 			if err != nil {
 				return err
@@ -348,8 +349,6 @@ func (p *Parser) searchStmts(stmts []ast.Stmt, packageName string, funcParsed *F
 															}
 														}
 													}
-												} else {
-													// TODO: if param is var
 												}
 											}
 										}
@@ -431,8 +430,6 @@ func (p *Parser) getVarsInArgs(varMap map[string]*Var, expr *ast.CallExpr) []*Va
 												continue
 											}
 										}
-									} else {
-										// TODO: if param is var
 									}
 								}
 							}
