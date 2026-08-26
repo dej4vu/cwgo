@@ -60,10 +60,10 @@ func GetIdlType(path string, pbName ...string) (string, error) {
 
 func ReadFileContent(filePath string) (content []byte, err error) {
 	file, err := os.Open(filePath)
-	defer file.Close()
 	if err != nil {
 		return nil, err
 	}
+	defer file.Close()
 
 	return io.ReadAll(file)
 }

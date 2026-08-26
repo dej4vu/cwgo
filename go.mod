@@ -1,16 +1,17 @@
 module github.com/cloudwego/cwgo
 
-go 1.18
+go 1.25.0
 
 require (
 	github.com/Masterminds/sprig/v3 v3.2.3
+	github.com/apache/thrift v0.13.0
 	github.com/cloudwego/hertz/cmd/hz v0.8.1
 	github.com/cloudwego/kitex v0.9.1
 	github.com/cloudwego/thriftgo v0.3.10
 	github.com/fatih/camelcase v1.0.0
 	github.com/stretchr/testify v1.8.4
 	github.com/urfave/cli/v2 v2.27.1
-	golang.org/x/tools v0.20.0
+	golang.org/x/tools v0.49.0
 	gopkg.in/yaml.v3 v3.0.1
 	gorm.io/driver/mysql v1.5.6
 	gorm.io/driver/postgres v1.5.7
@@ -24,7 +25,6 @@ require (
 require (
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.2.0 // indirect
-	github.com/apache/thrift v0.13.0 // indirect
 	github.com/benbjohnson/clock v1.1.0 // indirect
 	github.com/cloudwego/fastpb v0.0.4 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
@@ -35,7 +35,6 @@ require (
 	github.com/golang-sql/civil v0.0.0-20220223132316-b832511892a9 // indirect
 	github.com/golang-sql/sqlexp v0.1.0 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
-	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/google/uuid v1.4.0 // indirect
 	github.com/hashicorp/go-version v1.5.0 // indirect
 	github.com/huandu/xstrings v1.3.3 // indirect
@@ -66,8 +65,8 @@ require (
 	go.uber.org/zap v1.24.0 // indirect
 	golang.org/x/crypto v0.18.0 // indirect
 	golang.org/x/exp v0.0.0-20220428152302-39d4317da171 // indirect
-	golang.org/x/mod v0.17.0 // indirect
-	golang.org/x/sync v0.7.0 // indirect
+	golang.org/x/mod v0.39.0 // indirect
+	golang.org/x/sync v0.22.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	google.golang.org/genproto v0.0.0-20230110181048-76db0878b65f // indirect
 	google.golang.org/grpc v1.55.0-dev // indirect
