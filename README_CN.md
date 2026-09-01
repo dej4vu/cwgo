@@ -18,7 +18,7 @@ cwgo 是 CloudWeGo All in one 代码生成工具，整合了 kitex 和 hz 工具
 ## Fork 兼容性说明
 
 上游归档后由本 fork 继续维护。当前 Kitex 生成器与运行时的兼容性验证见
-[Kitex v0.15.4 greet 兼容性测试](docs/compat/kitex-v0154-greet.md)。
+[Kitex v0.16.3 greet 兼容性测试](docs/compat/kitex-v0163-greet.md)。
 
 ## 工具特点
 

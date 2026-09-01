@@ -19,7 +19,7 @@ the development efficiency and experience. The main features of cwgo tool are as
 
 This fork continues maintenance after the upstream archive. The current Kitex generator/runtime
 compatibility check is documented in
-[Kitex v0.15.4 greet compatibility](docs/compat/kitex-v0154-greet.md).
+[Kitex v0.16.3 greet compatibility](docs/compat/kitex-v0163-greet.md).
 
 ## Tool Characteristics
 

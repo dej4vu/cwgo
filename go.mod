@@ -9,7 +9,7 @@ go 1.25.0
 // `appendDeprecationSuffix(prefix, deprecated)` (2-arg, v1.28) to
 // `appendDeprecationSuffix(prefix, parentFile, deprecated)` (3-arg, v1.29+),
 // so any protobuf >= v1.29 triggers a nil-pointer panic inside hz.
-// kitex v0.15.4 only uses `gengo.GenerateFile` (signature stable across v1.28..v1.33),
+// kitex v0.16.3 only uses `gengo.GenerateFile` (signature stable across v1.28..v1.33),
 // so downgrading the transitive dep does not affect kitex codegen output.
 replace google.golang.org/protobuf => google.golang.org/protobuf v1.28.1
 
@@ -17,8 +17,8 @@ require (
 	github.com/Masterminds/sprig/v3 v3.2.3
 	github.com/apache/thrift v0.13.0
 	github.com/cloudwego/hertz/cmd/hz v0.9.7
-	github.com/cloudwego/kitex v0.15.4
-	github.com/cloudwego/thriftgo v0.4.3
+	github.com/cloudwego/kitex v0.16.3
+	github.com/cloudwego/thriftgo v0.4.5
 	github.com/fatih/camelcase v1.0.0
 	github.com/stretchr/testify v1.10.0
 	github.com/urfave/cli/v2 v2.27.1
@@ -38,8 +38,8 @@ require (
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.2.0 // indirect
 	github.com/benbjohnson/clock v1.1.0 // indirect
-	github.com/bytedance/gopkg v0.1.3 // indirect
-	github.com/cloudwego/gopkg v0.1.8 // indirect
+	github.com/bytedance/gopkg v0.1.4 // indirect
+	github.com/cloudwego/gopkg v0.2.0 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/cznic/mathutil v0.0.0-20181122101859-297441e03548 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
