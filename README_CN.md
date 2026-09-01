@@ -15,6 +15,11 @@ gorm、mongoDB 等生成暂不继续支持。
 
 cwgo 是 CloudWeGo All in one 代码生成工具，整合了 kitex 和 hz 工具的优势，以提高开发者的编码效率和使用体验。其主要功能特点如下：
 
+## Fork 兼容性说明
+
+上游归档后由本 fork 继续维护。当前 Kitex 生成器与运行时的兼容性验证见
+[Kitex v0.15.4 greet 兼容性测试](docs/compat/kitex-v0154-greet.md)。
+
 ## 工具特点
 
 - 支持生成工程化模板
