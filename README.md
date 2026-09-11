@@ -15,6 +15,12 @@ If you have other requirements, please feel free to contact us.
 cwgo is an all-in-one code generation tool for CloudWeGo. It integrates the advantages of the kitex and hz tools to improve
 the development efficiency and experience. The main features of cwgo tool are as follows:
 
+## Fork Compatibility Notes
+
+This fork continues maintenance after the upstream archive. The current Kitex generator/runtime
+compatibility check is documented in
+[Kitex v0.16.3 greet compatibility](docs/compat/kitex-v0163-greet.md).
+
 ## Tool Characteristics
 
 - Support for generating engineering templates

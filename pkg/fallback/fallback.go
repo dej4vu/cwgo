@@ -19,6 +19,7 @@ package fallback
 import (
 	"bytes"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/cloudwego/cwgo/config"
@@ -35,11 +36,26 @@ func Fallback(c *config.FallbackArgument) error {
 	case consts.KitexTool:
 		os.Args = c.Args
 		var args kargs.Arguments
-		args.ParseArgs(kitex.Version)
+		curpath, err := filepath.Abs(".")
+		if err != nil {
+			return err
+		}
+		if err = args.ParseArgs(kitex.Version, curpath, os.Args[1:]); err != nil {
+			return err
+		}
+		// FastPB is deprecated since Kitex v0.15; the kitex CLI main() forces
+		// NoFastAPI for protobuf before building the command, but the cwgo
+		// fallback path calls BuildCmd directly, so apply the same guard here.
+		if args.IsProtobuf() {
+			args.NoFastAPI = true
+		}
 
 		out := new(bytes.Buffer)
-		cmd := args.BuildCmd(out)
-		err := cmd.Run()
+		cmd, err := args.BuildCmd(out)
+		if err != nil {
+			return err
+		}
+		err = cmd.Run()
 		if err != nil {
 			if args.Use != "" {
 				out := strings.TrimSpace(out.String())

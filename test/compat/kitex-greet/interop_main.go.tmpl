@@ -1,0 +1,103 @@
+package main
+
+import (
+	"context"
+	"flag"
+	"fmt"
+	"net"
+	"os"
+	"time"
+
+	greet "example.com/greet/kitex_gen/greet"
+	greetservice "example.com/greet/kitex_gen/greet/greetservice"
+	"github.com/cloudwego/kitex/client"
+	"github.com/cloudwego/kitex/pkg/rpcinfo"
+	"github.com/cloudwego/kitex/server"
+)
+
+type greetHandler struct{}
+
+func (greetHandler) Hello(ctx context.Context, req *greet.HelloRequest) (*greet.HelloResponse, error) {
+	return &greet.HelloResponse{Message: "hello " + req.Name}, nil
+}
+
+func main() {
+	mode := flag.String("mode", "server", "server or client")
+	addr := flag.String("addr", "127.0.0.1:19101", "TCP address")
+	count := flag.Int("count", 1, "number of client calls")
+	flag.Parse()
+
+	switch *mode {
+	case "server":
+		if err := runServer(*addr); err != nil {
+			fmt.Fprintln(os.Stderr, "SERVER_ERROR:", err)
+			os.Exit(1)
+		}
+	case "client":
+		if err := runClient(*addr, *count); err != nil {
+			fmt.Fprintln(os.Stderr, "CLIENT_ERROR:", err)
+			os.Exit(1)
+		}
+	default:
+		fmt.Fprintln(os.Stderr, "invalid mode:", *mode)
+		os.Exit(2)
+	}
+}
+
+func runServer(addr string) error {
+	tcpAddr, err := net.ResolveTCPAddr("tcp", addr)
+	if err != nil {
+		return err
+	}
+
+	svr := greetservice.NewServer(
+		&greetHandler{},
+		server.WithServiceAddr(tcpAddr),
+		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: "greet"}),
+		server.WithExitWaitTime(100*time.Millisecond),
+	)
+	fmt.Println("SERVER_READY")
+	return svr.Run()
+}
+
+func runClient(addr string, callCount int) error {
+	cli, err := greetservice.NewClient(
+		"greet",
+		client.WithHostPorts(addr),
+		client.WithConnectTimeout(500*time.Millisecond),
+		client.WithRPCTimeout(2*time.Second),
+	)
+	if err != nil {
+		return err
+	}
+
+	var lastErr error
+	for attempt := 0; attempt < 50; attempt++ {
+		ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+		resp, callErr := cli.Hello(ctx, &greet.HelloRequest{Name: "kitex"})
+		cancel()
+		if callErr != nil {
+			lastErr = callErr
+			time.Sleep(100 * time.Millisecond)
+			continue
+		}
+
+		if resp.GetMessage() != "hello kitex" {
+			return fmt.Errorf("unexpected response: %q", resp.GetMessage())
+		}
+		for i := 1; i < callCount; i++ {
+			ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+			resp, callErr = cli.Hello(ctx, &greet.HelloRequest{Name: "kitex"})
+			cancel()
+			if callErr != nil {
+				return callErr
+			}
+			if resp.GetMessage() != "hello kitex" {
+				return fmt.Errorf("unexpected response: %q", resp.GetMessage())
+			}
+		}
+		fmt.Printf("CALL_OK %s count=%d\n", resp.GetMessage(), callCount)
+		return nil
+	}
+	return lastErr
+}

@@ -135,6 +135,15 @@ func checkKitexArgs(a *kargs.Arguments) (err error) {
 		return err
 	}
 
+	// FastPB is deprecated since Kitex v0.15: the generator no longer
+	// emits FastRead/FastWrite/Size, but the templates still generate those
+	// calls for protobuf unless NoFastAPI is set. The upstream kitex CLI
+	// forces this in its main(); cwgo bypasses that by invoking BuildCmd
+	// directly, so force it here to keep generated service code compiling.
+	if a.IsProtobuf() {
+		a.NoFastAPI = true
+	}
+
 	// check service name
 	if a.ServiceName == "" {
 		if a.Use != "" {
