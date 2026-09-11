@@ -47,7 +47,7 @@ func Fallback(c *config.FallbackArgument) error {
 		// NoFastAPI for protobuf before building the command, but the cwgo
 		// fallback path calls BuildCmd directly, so apply the same guard here.
 		if args.IsProtobuf() {
-			args.Config.NoFastAPI = true
+			args.NoFastAPI = true
 		}
 
 		out := new(bytes.Buffer)

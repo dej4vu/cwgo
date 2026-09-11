@@ -133,7 +133,6 @@ func checkKitexArgs(a *kargs.Arguments) (err error) {
 	// forces this in its main(); cwgo bypasses that by invoking BuildCmd
 	// directly, so force it here to keep generated service code compiling.
 	if a.IsProtobuf() {
-		a.Config.NoFastAPI = true
 		a.NoFastAPI = true
 	}
 
